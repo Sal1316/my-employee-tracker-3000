@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const {
-  viewAllDeparments,
+  viewAllDepartments,
   viewAllRoles,
   viewAllEmployees,
   addADepartment,
@@ -28,24 +28,43 @@ const questions = [
     type: "list",
     name: "action",
     message: "what do you want to do?",
-    choices: ["View all Dept", "View all Roles", "View all Employees"],
+    choices: [
+      "View all Departments",
+      "View all Roles",
+      "View all Employees",
+      "Add a department",
+      "Add a role",
+      "Add an employee",
+      "Update an employee role",
+    ],
   },
 ];
 
 inquirer.prompt(questions).then((answers) => {
   console.log(answers); // once the user finishes every single question, we will get a promise (.then) with the answers obj.
 
-  switch (answers.name) {
-    case "View all Dept":
-      viewAllDeparments(db); // not sure why db is an argument here.
+  switch (answers.action) {
+    case "View all Departments":
+      viewAllDepartments(db); // not sure why db is an argument here.
       break;
-
     case "View all Roles":
       viewAllRoles(db);
       break;
-
     case "View all Employees":
       viewAllEmployees(db);
+      break;
+    //
+    case "Add a department":
+      addADepartment(db);
+      break;
+    case "Add a role":
+      addARole(db);
+      break;
+    case "Add an employee":
+      addEmployee(db);
+      break;
+    case "Update an employee role":
+      updateEmployee(db);
       break;
 
     default:
@@ -54,5 +73,3 @@ inquirer.prompt(questions).then((answers) => {
       break;
   }
 });
-
-app.listen(PORT, () => console.log(`Server started on Port: ${PORT}`));

@@ -1,12 +1,16 @@
-function viewAllDeparments(db) {
-  db.query(`SELECT * FROM deparment`, (err, result) => {
+const inquirer = require("inquirer");
+
+function viewAllDepartments(db) {
+  // Working
+  db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("viewAllDeparments:\n", result);
+    console.log("viewAllDepartments:\n", result);
   });
 }
 function viewAllRoles(db) {
+  // Working
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
       console.log(err);
@@ -15,6 +19,7 @@ function viewAllRoles(db) {
   });
 }
 function viewAllEmployees(db) {
+  // Working
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
       console.log(err);
@@ -22,21 +27,43 @@ function viewAllEmployees(db) {
     console.log("viewAllEmployees:", result);
   });
 }
-function addADepartment(db, deptData) {
+//
+function addADepartment(db, deptData) { // Working
   inquirer
     .prompt([
       {
-        type: "list",
-        name: "name",
-        message: "Choose the department.",
-        choices: ["Enginnering", "Operations", "Finance"],
+        type: "input",
+        name: "dept_name",
+        message: "Enter the name of the department to Add.",
+        validate: (input) => {
+          if (input.trim() === "") {
+            return "You need to input something for department name.";
+          }
+          return true;
+        },
+      },
+      {
+        type: "input",
+        name: "dept_id",
+        message: "Enter the department ID:",
+        validate: (input) => {
+          const deptId = parseInt(input);
+          if (isNaN(deptId) || deptId <= 0) {
+            return "Please enter a valid positive integer for the department ID.";
+          }
+          return true;
+        },
       },
     ])
     .then((answers) => {
+      const { dept_name, dept_id } = answers;
+      console.log("department name: ", dept_name);
+      console.log("department dept_id: ", dept_id);
+
       db.query(
-        `INSERT INTO department (name)
-          VALUES(?, ?)`,
-        deptData, // this replaces the question marks.
+        `INSERT INTO department(dept_name, dept_id)
+          VALUES(?, ?)`, // the (name) is the column you want to insert data in the department table.
+        [dept_name, dept_id], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
@@ -51,21 +78,22 @@ function addARole(db, deptData) {
     .prompt([
       {
         type: "list",
-        name: "name",
-        message: "Choose the department.",
-        choices: ["Enginnering", "Operations", "Finance"],
+        name: "role",
+        message: "Choose a role to Add.",
+        choices: ["Engineer", "CSR", "Analyst"],
       },
     ])
     .then((answers) => {
+      const { title, role_id, dept_id, salary } = answers;
       db.query(
-        `INSERT INTO department 
-        VALUES(?, ?)`,
-        deptData, // this replaces the question marks.
+        `INSERT INTO role(title, role_id, dept_id, salary)
+        VALUES(?, ?, ?, ?)`,
+        [title, role_id, dept_id, salary],
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("addADepartment success:", result);
+          console.log("addARole success:", result);
         }
       );
     });
@@ -75,21 +103,22 @@ function addEmployee(db, deptData) {
     .prompt([
       {
         type: "list",
-        name: "name",
-        message: "Choose the department.",
-        choices: ["Enginnering", "Operations", "Finance"],
+        name: "employee",
+        message: "Add an Employee.",
+        choices: ["Engineer", "CSR", "Analyst"],
       },
     ])
     .then((answers) => {
+      const { employee } = answers;
       db.query(
-        `INSERT INTO department 
-          VALUES(?, ?)`,
-        deptData, // this replaces the question marks.
+        `INSERT INTO employee(employee_id, f_name, l_name, title, dept_id, salary, reports_to)
+          VALUES(?, ?, ?, ?, ?, ?, ?)`,
+        [employee_id, f_name, l_name, title, dept_id, salary, reports_to], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("addADepartment success:", result);
+          console.log("addEmployee success:", result);
         }
       );
     });
@@ -100,15 +129,24 @@ function updateEmployee(db, deptData) {
       {
         type: "list",
         name: "name",
-        message: "Choose the department.",
-        choices: ["Enginnering", "Operations", "Finance"],
+        message: "Update an Employee.",
+        choices: ["Engineer", "CSR", "Analyst"],
       },
     ])
     .then((answers) => {
+      const {
+        employee_id,
+        f_name,
+        l_name,
+        title,
+        dept_id,
+        salary,
+        reports_to,
+      } = answers;
       db.query(
-        `INSERT INTO department 
+        `UPDATE INTO employee(employee_id, f_name, l_name, title, dept_id, salary, reports_to)
         VALUES(?, ?)`,
-        deptData, // this replaces the question marks.
+        [employee_id, f_name, l_name, title, dept_id, salary, reports_to], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
@@ -118,8 +156,9 @@ function updateEmployee(db, deptData) {
       );
     });
 }
+
 module.exports = {
-  viewAllDeparments,
+  viewAllDepartments,
   viewAllRoles,
   viewAllEmployees,
   addADepartment,
