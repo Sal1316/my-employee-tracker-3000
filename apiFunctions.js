@@ -80,9 +80,9 @@ function addARole(db, deptData) {
     .prompt([
       {
         type: "list",
-        name: "role",
-        message: "Choose a role to Add.",
-        choices: ["Engineer", "CSR", "Analyst"],
+        name: "role_id",
+        message: "Choose a role Id.",
+        choices: [1, 2, 3],
       },
       {
         type: "input",
@@ -168,7 +168,7 @@ function addEmployee(db, deptData) {
         type: "list",
         name: "reports_to",
         message: "Direct manager.",
-        choices: ["Sal", "Stu", "Blue"],
+        choices: ["Sal", "Jen", "Blue"],
       },
     ])
     .then((answers) => {
@@ -204,36 +204,36 @@ function addEmployee(db, deptData) {
       );
     });
 }
-// 
+// Working
 function updateEmployeeRole(db, deptData) {
   inquirer
     .prompt([
       {
+        type: "input",
+        name: "id",
+        message: "Enter the employee Id.",
+      },
+      {
         type: "list",
-        name: "name",
-        message: "Update an Employee.",
-        choices: ["Engineer", "CSR", "Analyst"],
+        name: "role_id",
+        message: "Select the role Id.",
+        choices: [1, 2, 3],
       },
     ])
     .then((answers) => {
-      const {
-        employee_id,
-        f_name,
-        l_name,
-        title,
-        dept_id,
-        salary,
-        reports_to,
-      } = answers;
+      const { id, role_id } = answers;
+
       db.query(
-        `UPDATE INTO employee(employee_id, f_name, l_name, title, dept_id, salary, reports_to)
-        VALUES(?, ?)`,
-        [employee_id, f_name, l_name, title, dept_id, salary, reports_to], // this replaces the question marks.
+        `UPDATE employee SET role_id=? WHERE id=?`,
+        [role_id, id], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("addADepartment success:", result);
+          console.log(
+            "\u{1F680} updateEmployeeRole success: \u{1F680}",
+            result
+          );
         }
       );
     });

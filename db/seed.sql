@@ -10,17 +10,13 @@ VALUES (1, 100, 'Engineer', 125009.04),
       (3, 300, 'Analyst', 79900.78);
 
        
-INSERT INTO employee (dept_id, role_id, employee_id, f_name, l_name, title, salary, reports_to)
-VALUES (100, 1, 'E001','Sal', 'Ceja', 'Developer', 140000.45, 'Sal.' ),
-      (200, 2, 'O001','Al', 'Pal', 'CSR', 60450.34, 'Sal' ),
-      (300, 3, 'F001','Blue', 'Clue', 'Analyst', 114600.54, 'Sal' ),
-      (100, 1, 'E001','Bob', 'Cross', 'Developer', 140000.54, 'Blue' ),
-      (200, 2, 'O001','Stu', 'Pal', 'CSR', 66450.23, 'Sal' ),
-      (300, 3, 'F001','Kevin', 'Plue', 'Analyst', 123600.45, 'Sal' ),
-      (100, 1, 'E001','Smit', 'Cpii', 'Developer', 134000.55, 'Stu' ),
-      (200, 2, 'O001','Cloe', 'Toe', 'CSR', 64550.54, 'Sal' ),
-      (300, 3, 'F001','Steff', 'Pleth', 'Analyst', 153600.21, 'Sal' );
-
+INSERT INTO employee (dept_id, role_id, f_name, l_name, title, salary, reports_to)
+VALUES (100, 1,'Sal', 'Ceja', 'Developer', 140000.45, 'Sal' ),
+      (200, 2,'Al', 'Pal', 'CSR', 60450.34, 'Jen' ),
+      (300, 3,'Blue', 'Clue', 'Analyst', 114600.54, 'Sal' ),
+      (100, 1,'Bob', 'Cross', 'Developer', 140000.54, 'Blue' ),
+      (200, 2,'Stu', 'Pal', 'CSR', 66450.23, 'Sal' ),
+      (300, 3,'Kevin', 'Plue', 'Analyst', 123600.45, 'Sal' );
  
        
        
