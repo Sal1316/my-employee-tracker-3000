@@ -8,7 +8,7 @@ const {
   addADepartment,
   addARole,
   addEmployee,
-  updateEmployee,
+  updateEmployeeRole,
 } = require("./apiFunctions");
 
 // Connect to database
@@ -19,7 +19,7 @@ const db = mysql.createConnection(
     password: "Helifino",
     database: "business_db",
   },
-  console.log(`Connected to the business_db database.`)
+  console.log(`\u{1F680} Connected to the business_db database. \u{1F680}`)
 );
 
 // application starts with npm start index.js

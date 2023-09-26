@@ -19,7 +19,6 @@ CREATE TABLE employee (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   dept_id INT NOT NULL,
   role_id INT NOT NULL,
-  employee_id VARCHAR(30) NOT NULL,
   f_name VARCHAR(30) NOT NULL,
   l_name VARCHAR(30) NOT NULL,
   title VARCHAR(30) NOT NULL,
