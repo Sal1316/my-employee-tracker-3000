@@ -2,40 +2,33 @@ DROP DATABASE IF EXISTS business_db;
 CREATE DATABASE business_db;
 USE business_db;
 
-CREATE TABLE department (
-  dept_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  dept_name VARCHAR(30) NOT NULL
+CREATE TABLE department ( -- done
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  department VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE role (
-  role_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  
-  dept_id INT NOT NULL,
-  title VARCHAR(30) NOT NULL,
-  salary DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (dept_id) REFERENCES department(dept_id)
+CREATE TABLE role ( -- done
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+  title VARCHAR(30) NOT NULL, -- same as role_id
+  department VARCHAR(30) NOT NULL,
+  salary DECIMAL(10, 2) NOT NULL
+  -- FOREIGN KEY (department) REFERENCES department(department) // not required per README
 );
 
-CREATE TABLE employee (
+CREATE TABLE employee ( -- done
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  dept_id INT NOT NULL,
-  role_id INT NOT NULL,
   f_name VARCHAR(30) NOT NULL,
   l_name VARCHAR(30) NOT NULL,
-  title VARCHAR(30) NOT NULL,
+  title VARCHAR(30) NOT NULL, -- same as role_id
+  department VARCHAR(30) NOT NULL,
   salary DECIMAL(10, 2) NOT NULL,
-  reports_to VARCHAR(30) NOT NULL,
-  FOREIGN KEY (dept_id) REFERENCES department(dept_id),
-  FOREIGN KEY (role_id) REFERENCES role(role_id)
+  manager VARCHAR(30) NOT NULL
+  -- FOREIGN KEY (dept_id) REFERENCES department(dept_id), // not required per README
+  -- FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
 
 /*
-
- Dept id's and names:
-
-  100 - enginering
-  200 - operations
-  300 - finance
 
 - DECIMAL(6, 2) --- 5 is the precission and 2 is the scale. 
   Means 5 is the number of Significal digits and Scale represents the number 

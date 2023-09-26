@@ -19,7 +19,7 @@ const db = mysql.createConnection(
     password: "Helifino",
     database: "business_db",
   },
-  console.log(`\u{1F680} Connected to the business_db database. \u{1F680}`)
+  console.log(`\u{1F680} Connected to the business_db database. \u{1F680} \n`)
 );
 
 // application starts with npm start index.js
@@ -27,7 +27,7 @@ const questions = [
   {
     type: "list",
     name: "action",
-    message: "what do you want to do?",
+    message: "what do you want to do? \n",
     choices: [
       "View all Departments",
       "View all Roles",
@@ -35,41 +35,53 @@ const questions = [
       "Add a department",
       "Add a role",
       "Add an employee",
-      "Update an employee role",
+      "Update an employee role/title",
+      "Quit",
     ],
   },
 ];
 
-inquirer.prompt(questions).then((answers) => {
-  console.log(answers); // once the user finishes every single question, we will get a promise (.then) with the answers obj.
+function promptUser() {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(answers); // once the user finishes every single question, we will get a promise (.then) with the answers obj.
 
-  switch (answers.action) {
-    case "View all Departments":
-      viewAllDepartments(db); // not sure why db is an argument here.
-      break;
-    case "View all Roles":
-      viewAllRoles(db);
-      break;
-    case "View all Employees":
-      viewAllEmployees(db);
-      break;
-    //
-    case "Add a department":
-      addADepartment(db);
-      break;
-    case "Add a role":
-      addARole(db);
-      break;
-    case "Add an employee":
-      addEmployee(db);
-      break;
-    case "Update an employee role":
-      updateEmployeeRole(db);
-      break;
-    //
-    default:
-      console.log("Later!");
-      db.end();
-      break;
-  }
-});
+    switch (answers.action) {
+      case "View all Departments":
+        viewAllDepartments(db); // not sure why db is an argument here.
+        break;
+      case "View all Roles":
+        viewAllRoles(db);
+        break;
+      case "View all Employees":
+        viewAllEmployees(db);
+        break;
+      //
+      case "Add a department":
+        addADepartment(db);
+        break;
+      case "Add a role":
+        addARole(db);
+        break;
+      case "Add an employee":
+        addEmployee(db);
+        break;
+      case "Update an employee role":
+        updateEmployeeRole(db);
+        break;
+      case "Quit":
+        console.log("You have terminated the appliation!");
+        db.end();
+        break;
+      //
+      default:
+        console.log("You didnt enter the correct response!");
+        db.end();
+        break;
+    }
+    if (answers.action !== "Quit") {
+      promptUser();
+    }
+  });
+}
+
+promptUser();
