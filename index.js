@@ -64,7 +64,7 @@ inquirer.prompt(questions).then((answers) => {
       addEmployee(db);
       break;
     case "Update an employee role":
-      updateEmployee(db);
+      updateEmployeeRole(db);
       break;
     //
     default:

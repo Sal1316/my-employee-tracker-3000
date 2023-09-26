@@ -204,7 +204,8 @@ function addEmployee(db, deptData) {
       );
     });
 }
-function updateEmployee(db, deptData) {
+// 
+function updateEmployeeRole(db, deptData) {
   inquirer
     .prompt([
       {
@@ -245,9 +246,18 @@ module.exports = {
   addADepartment,
   addARole,
   addEmployee,
-  updateEmployee,
+  updateEmployeeRole,
 };
-//
+/* BUGS: 
+- addARole should only use, name, salary, and department for the role
+- addEmployes should only use, first name, last name, role, and manager as inputs.
+
+
+
+
+
+
+*/
 //
 //
 //
