@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 
+// Working
 function viewAllDepartments(db) {
-  // Working
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
       console.log(err);
@@ -9,8 +9,8 @@ function viewAllDepartments(db) {
     console.log("viewAllDepartments:\n", result);
   });
 }
+// Working
 function viewAllRoles(db) {
-  // Working
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
       console.log(err);
@@ -18,8 +18,8 @@ function viewAllRoles(db) {
     console.log("viewAllRoles:", result);
   });
 }
+// Working
 function viewAllEmployees(db) {
-  // Working
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
       console.log(err);
@@ -27,8 +27,9 @@ function viewAllEmployees(db) {
     console.log("viewAllEmployees:", result);
   });
 }
-//
-function addADepartment(db, deptData) { // Working
+
+// Working
+function addADepartment(db, deptData) {
   inquirer
     .prompt([
       {
@@ -82,6 +83,35 @@ function addARole(db, deptData) {
         message: "Choose a role to Add.",
         choices: ["Engineer", "CSR", "Analyst"],
       },
+      {
+        type: "input",
+        name: "title",
+        message: "Enter the role title.",
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "Enter role id",
+        choices: [1, 2, 3],
+      },
+      {
+        type: "list",
+        name: "dept_id",
+        message: "Enter the department id.",
+        choices: [100, 200, 300],
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "Enter the salary.",
+        validate: (input) => {
+          const deptId = parseInt(input);
+          if (isNaN(deptId) || deptId <= 0) {
+            return "Please enter a valid positive integer for the Salary";
+          }
+          return true;
+        },
+      },
     ])
     .then((answers) => {
       const { title, role_id, dept_id, salary } = answers;
@@ -107,6 +137,44 @@ function addEmployee(db, deptData) {
         message: "Add an Employee.",
         choices: ["Engineer", "CSR", "Analyst"],
       },
+      {
+        type: "input",
+        name: "employee_id",
+        message: "Enter Employee Id.",
+      },
+      {
+        type: "input",
+        name: "f_name",
+        message: "Enter Employee's first name.",
+      },
+      {
+        type: "input",
+        name: "l_name",
+        message: "Enter Employee's last name",
+      },
+      {
+        type: "input",
+        name: "title",
+        message: "Enter Employee's title",
+      },
+      {
+        type: "list",
+        name: "dept_id",
+        message: "Add an Employee's department id.",
+        choices: [100,200,300],
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "Add Employee's salary.",
+      },
+      {
+        type: "list",
+        name: "reports_to",
+        message: "Add Employee's salary.",
+        chices: ["Sal", "Stu", "Blue"],
+      },
+      
     ])
     .then((answers) => {
       const { employee } = answers;
@@ -166,6 +234,18 @@ module.exports = {
   addEmployee,
   updateEmployee,
 };
+//
+//
+//
+//
+//
+//
+
+//
+
+//
+
+//
 
 // this acts like a controler file that contains all the logic for how and what to do in the backend.
 /*
