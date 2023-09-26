@@ -74,6 +74,7 @@ function addADepartment(db, deptData) {
       );
     });
 }
+// Working
 function addARole(db, deptData) {
   inquirer
     .prompt([
@@ -87,12 +88,6 @@ function addARole(db, deptData) {
         type: "input",
         name: "title",
         message: "Enter the role title.",
-      },
-      {
-        type: "list",
-        name: "role_id",
-        message: "Enter role id",
-        choices: [1, 2, 3],
       },
       {
         type: "list",
@@ -128,14 +123,21 @@ function addARole(db, deptData) {
       );
     });
 }
+// Working
 function addEmployee(db, deptData) {
   inquirer
     .prompt([
       {
         type: "list",
-        name: "employee",
-        message: "Add an Employee.",
-        choices: ["Engineer", "CSR", "Analyst"],
+        name: "dept_id",
+        message: "Enter the department Id.",
+        choices: [100, 200, 300],
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "Enter the role Id.",
+        choices: [1, 2, 3],
       },
       {
         type: "input",
@@ -158,12 +160,6 @@ function addEmployee(db, deptData) {
         message: "Enter Employee's title",
       },
       {
-        type: "list",
-        name: "dept_id",
-        message: "Add an Employee's department id.",
-        choices: [100,200,300],
-      },
-      {
         type: "input",
         name: "salary",
         message: "Add Employee's salary.",
@@ -171,17 +167,34 @@ function addEmployee(db, deptData) {
       {
         type: "list",
         name: "reports_to",
-        message: "Add Employee's salary.",
-        chices: ["Sal", "Stu", "Blue"],
+        message: "Direct manager.",
+        choices: ["Sal", "Stu", "Blue"],
       },
-      
     ])
     .then((answers) => {
-      const { employee } = answers;
+      const {
+        dept_id,
+        role_id,
+        employee_id,
+        f_name,
+        l_name,
+        title,
+        salary,
+        reports_to,
+      } = answers;
       db.query(
-        `INSERT INTO employee(employee_id, f_name, l_name, title, dept_id, salary, reports_to)
-          VALUES(?, ?, ?, ?, ?, ?, ?)`,
-        [employee_id, f_name, l_name, title, dept_id, salary, reports_to], // this replaces the question marks.
+        `INSERT INTO employee(dept_id, role_id, employee_id, f_name, l_name, title, salary, reports_to)
+          VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          dept_id,
+          role_id,
+          employee_id,
+          f_name,
+          l_name,
+          title,
+          salary,
+          reports_to,
+        ], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
