@@ -5,7 +5,7 @@ VALUES ( 100,'Engineering' ),
 
        
 INSERT INTO role ( role_id, dept_id, title, salary )
-VALUES (1, 100, 'Engineer', 125009.04),100
+VALUES (1, 100, 'Engineer', 125009.04),
       (2, 200, 'CSR', 40093.98),
       (3, 300, 'Analyst', 79900.78);
 

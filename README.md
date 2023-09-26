@@ -18,8 +18,8 @@
 
 ## Credits
 
-- GitHub url:
+- GitHub url: https://github.com/Sal1316/my-employee-tracker-3000
 
-- Video walkthrough link:
+- Video walkthrough link: 
 
 ## Features

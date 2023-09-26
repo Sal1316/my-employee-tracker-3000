@@ -66,7 +66,7 @@ inquirer.prompt(questions).then((answers) => {
     case "Update an employee role":
       updateEmployee(db);
       break;
-
+    //
     default:
       console.log("Later!");
       db.end();
