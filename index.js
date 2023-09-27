@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
+
 const {
   viewAllDepartments,
   viewAllRoles,
@@ -22,7 +23,6 @@ const db = mysql.createConnection(
   console.log(`\u{1F680} Connected to the business_db database. \u{1F680} \n`)
 );
 
-// application starts with npm start index.js
 const questions = [
   {
     type: "list",
@@ -47,39 +47,37 @@ function promptUser() {
 
     switch (answers.action) {
       case "View all Departments":
-        viewAllDepartments(db); // not sure why db is an argument here.
+        viewAllDepartments(db, promptUser); // not sure why db is an argument here.
         break;
       case "View all Roles":
-        viewAllRoles(db);
+        viewAllRoles(db, promptUser);
         break;
       case "View all Employees":
-        viewAllEmployees(db);
+        viewAllEmployees(db, promptUser);
         break;
       //
       case "Add a department":
-        addADepartment(db);
+        addADepartment(db, promptUser);
         break;
       case "Add a role":
-        addARole(db);
+        addARole(db, promptUser);
         break;
       case "Add an employee":
-        addEmployee(db);
+        addEmployee(db, promptUser);
         break;
-      case "Update an employee role":
-        updateEmployeeRole(db);
+      case "Update an employee role/title":
+        updateEmployeeRole(db, promptUser);
         break;
       case "Quit":
         console.log("You have terminated the appliation!");
         db.end();
+        process.exit(); // kills the node app.
         break;
       //
       default:
         console.log("You didnt enter the correct response!");
-        db.end();
+        promptUser();
         break;
-    }
-    if (answers.action !== "Quit") {
-      promptUser();
     }
   });
 }

@@ -10,16 +10,19 @@
 
 ## Usage
 
-- The way that you use this application is, you run npm start, then it asks you the question, "What do you want to do?" Keep in mind that this app is uses (CRUD) operations to establis a DB in MySQL.
+- The first thing you have to do when you start the application is to log in to your MySQL using the command 'mysql -u root -p'. Next, you run the 'SOURCE db/schema.sql' command to load your schema. Then, you run 'SOURCE db/seed.sql' to add data to your tables.
 
-# Imags
+- The way you use this application is by running 'node index.js'. The CLI will then prompt you with some business-related questions. For example, the first question asks, 'What do you want to do?' and provides you with a list of choices to choose from. Among these choices are queries that correspond to how the data will be returned or entered. For instance, choice 2, 'View all Roles,' will display a table of all the roles/titles that exist in the 'business_db.' The other choices include queries where you provide information. For instance, 'Add a Department' allows you to add a new department to the 'departments' table. After you've gone through all the questions, you'll have a better understanding of your business operations.
 
--
+# Images
+
+![Alt text](images/want-to-do.jpg);
+![Alt text](images/view-all-departments.jpg);
+![Alt text](images/view-all-roles.jpg);
+![Alt text](images/view-all-employees.jpg);
 
 ## Credits
 
 - GitHub url: https://github.com/Sal1316/my-employee-tracker-3000
 
-- Video walkthrough link: 
-
-## Features
+- Video walkthrough link: https://drive.google.com/file/d/1gcqs9qXyCJw3O-VxuzYg7T-dDynaMXzD/view

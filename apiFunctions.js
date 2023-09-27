@@ -1,35 +1,38 @@
 const inquirer = require("inquirer");
 
 // Working
-function viewAllDepartments(db) {
+function viewAllDepartments(db, promptUser) {
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("viewAllDepartments: Success \u{1F680}", result);
+    console.table(result);
+    promptUser();
   });
 }
 // Working
-function viewAllRoles(db) {
+function viewAllRoles(db, showPrompt) {
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("viewAllRoles: Success \u{1F680}", result);
+    console.table(result);
+    showPrompt();
   });
 }
 // Working
-function viewAllEmployees(db) {
+function viewAllEmployees(db, showPrompt) {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("viewAllEmployees: Success \u{1F680}", result);
+    console.table(result);
+    showPrompt();
   });
 }
 
-// Working
-function addADepartment(db, deptData) {
+// working
+function addADepartment(db, showPrompt) {
   inquirer
     .prompt([
       {
@@ -49,20 +52,21 @@ function addADepartment(db, deptData) {
 
       db.query(
         `INSERT INTO department(department)
-          VALUES(?)`, // the (name) is the column you want to insert data in the department table.
+          VALUES(?)`,
         [department], // this replaces the question marks.
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("addADepartment success:", result);
+          console.log("addADepartment:", result);
+          console.table(result);
+          showPrompt();
         }
       );
-      
     });
 }
-// Working
-function addARole(db, deptData) {
+// working
+function addARole(db, showPrompt) {
   inquirer
     .prompt([
       {
@@ -109,13 +113,15 @@ function addARole(db, deptData) {
           if (err) {
             console.log(err);
           }
-          console.log("addARole success:", result);
+          console.log("addARole success:");
+          console.table(result);
         }
       );
+      showPrompt();
     });
 }
-// Working
-function addEmployee(db, deptData) {
+// working
+function addEmployee(db, showPrompt) {
   inquirer
     .prompt([
       {
@@ -129,9 +135,20 @@ function addEmployee(db, deptData) {
         message: "Enter Employee's last name",
       },
       {
-        type: "input",
+        type: "list",
         name: "title",
-        message: "Enter Employee's title",
+        message: "Enter Employee's role/title",
+        choices: [
+          "Engineer",
+          "Developer",
+          "Operations Manager",
+          "CSR",
+          "Analyst",
+          "Accountant",
+          "Sales Manager",
+          "Sales Person",
+          "Owner",
+        ],
       },
       {
         type: "list",
@@ -155,7 +172,7 @@ function addEmployee(db, deptData) {
         type: "list",
         name: "manager",
         message: "Direct manager.",
-        choices: [NULL, "Sal", "Jen", "Blue"],
+        choices: ["none", "Sal", "Jen", "Blue"],
       },
     ])
     .then((answers) => {
@@ -168,13 +185,15 @@ function addEmployee(db, deptData) {
           if (err) {
             console.log(err);
           }
-          console.log("addEmployee success:", result);
+          console.log("addEmployee success:");
+          console.table(result);
         }
       );
+      showPrompt();
     });
 }
-// Working
-function updateEmployeeRole(db, deptData) {
+//
+function updateEmployeeRole(db, showPrompt) {
   inquirer
     .prompt([
       {
@@ -185,7 +204,7 @@ function updateEmployeeRole(db, deptData) {
       {
         type: "list",
         name: "title",
-        message: "Select the employee's new role/title.",
+        message: "Select the employee's New role/title.",
         choices: [
           "Engineer",
           "Developer",
@@ -209,12 +228,11 @@ function updateEmployeeRole(db, deptData) {
           if (err) {
             console.log(err);
           }
-          console.log(
-            "\u{1F680} updateEmployeeRole success: \u{1F680}",
-            result
-          );
+          console.log("\u{1F680} updateEmployeeRole success: \u{1F680}");
+          console.table(result);
         }
       );
+      showPrompt();
     });
 }
 
@@ -228,86 +246,17 @@ module.exports = {
   updateEmployeeRole,
 };
 /* BUGS: 
-- addARole should only use, name, salary, and department for the role
-- addEmployes should only use, first name, last name, role, and manager as inputs.
 
 
-
-
-
-
-*/
-//
-//
-//
-//
-//
-
-//
-
-//
-
-//
-
-// this acts like a controler file that contains all the logic for how and what to do in the backend.
-/*
-Original Code: 
-function addADepartment(db, deptData) {
-  inquirer.prompt(); // only run when funct gets called.
-  db.query(
-    `INSERT INTO department 
-    VALUES(?, ?, ?)`,
-    deptData, // this replaces the question marks.
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("addADepartment:", result);
+function viewAllDepartments(db) {
+  db.query(SELECT * FROM department`, (err, result) => {`
+    if (err) {
+      console.log(err);
     }
-  );
-}
-function addARole() {
-  inquirer.prompt();
-  db.query(
-    `INSERT INTO role 
-    VALUES(?, ?, ?)`,
-    deptData,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("addARole:", result);
-    }
-  );
-}
-function addEmployee() {
-  inquirer.prompt();
-  db.query(
-    `INSERT INTO employee 
-    VALUES(?, ?, ?)`,
-    deptData,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("addAEmployee:", result);
-    }
-  );
-}
-function updateEmployee() {
-  inquirer.prompt();
-  db.query(
-    `UPDATE employee Where id = ?
-    VALUES(?, ?, ?)`,
-    deptData,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("updateEmployee:", result);
-    }
-  );
-}
+    console.log("viewAllDepartments: Success \u{1F680}", result);
+  }).then(() => showPrompt());
+} 
+
 
 
 */
