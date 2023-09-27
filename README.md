@@ -2,11 +2,11 @@
 
 ## Description
 
-- The employee-tracker-3000 was crated to get some practical experience creating a 'Content Management System' that will allow the users to easily interact with the information that we will store in the database. The packages that we will be using are Node.js, Inquirer, and MySQL packages. We will be using MySQL/Sequelize to create, read, update and delete elements in the tables that we created in the DB. We used Inquirer because it uses JavaScript instead of sql syntax to communicate with the DB. The outcome is a CLI that the user will interact with to retrieve data, that will allow them to betterm make business decissions.
+- The Employee Tracker 3000 was created to gain practical experience in creating a 'Content Management System' that will allow users to easily interact with the information stored in the database. The packages we will be using are Node.js, Inquirer, and MySQL packages. We will be using MySQL/Sequelize to create, read, update, and delete elements in the tables that we have created in the database. We chose Inquirer because it uses JavaScript instead of SQL syntax to communicate with the database. The outcome is a CLI that users will interact with to retrieve data, enabling them to make better business decisions.
 
 ## Installation
 
-- To install this project and make it part of your repos, all you have to do in clone our provided repo and install the packages requried. For this application, we used inquirer, mysql2, an nodemon. The last is not necessary, but it helps with the development process because it keeps you from quiting and starting the app.
+- To install this project and make it a part of your repositories, all you have to do is clone our provided repository and install the required packages. For this application, we used Inquirer, MySQL2, and Nodemon. The last one is not necessary, but it helps with the development process because it prevents you from quitting and restarting the app.
 
 ## Usage
 
